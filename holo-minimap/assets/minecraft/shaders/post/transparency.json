@@ -1,0 +1,125 @@
+{
+    "targets": [
+        "swap1",
+        "swap2",
+        "minimap",
+        "render",
+        "translucent",
+        "itemEntity",
+        "particles",
+        "clouds",
+        "weather"
+    ],
+    "passes": [
+        {
+            "name": "transparency",
+            "intarget": "minecraft:main",
+            "outtarget": "swap1",
+            "auxtargets": [
+                {
+                    "name": "DiffuseDepthSampler",
+                    "id": "minecraft:main:depth"
+                },
+                {
+                    "name": "TranslucentSampler",
+                    "id": "translucent"
+                },
+                {
+                    "name": "TranslucentDepthSampler",
+                    "id": "translucent:depth"
+                },
+                {
+                    "name": "ItemEntitySampler",
+                    "id": "itemEntity"
+                },
+                {
+                    "name": "ItemEntityDepthSampler",
+                    "id": "itemEntity:depth"
+                },
+                {
+                    "name": "ParticlesSampler",
+                    "id": "particles"
+                },
+                {
+                    "name": "ParticlesDepthSampler",
+                    "id": "particles:depth"
+                },
+                {
+                    "name": "CloudsSampler",
+                    "id": "clouds"
+                },
+                {
+                    "name": "CloudsDepthSampler",
+                    "id": "clouds:depth"
+                },
+                {
+                    "name": "WeatherSampler",
+                    "id": "weather"
+                },
+                {
+                    "name": "WeatherDepthSampler",
+                    "id": "weather:depth"
+                }
+            ]
+        },
+        {
+            "name": "transparency2",
+            "intarget": "minecraft:main",
+            "outtarget": "swap2",
+            "auxtargets": [
+                {
+                    "name": "CurrentFrameSampler",
+                    "id": "swap1"
+                },
+                {
+                    "name": "PastFrameSampler",
+                    "id": "render"
+                }
+            ]
+        },
+        {
+            "name": "copy",
+            "intarget": "swap2",
+            "outtarget": "render"
+        },
+        {
+            "name": "transparency3",
+            "intarget": "minecraft:main",
+            "outtarget": "swap1",
+            "auxtargets": [
+                {
+                    "name": "DiffuseDepthSampler",
+                    "id": "minecraft:main:depth"
+                },
+                {
+                    "name": "TranslucentSampler",
+                    "id": "translucent"
+                },
+                {
+                    "name": "TranslucentDepthSampler",
+                    "id": "translucent:depth"
+                },
+                {
+                    "name": "PastFrameSampler",
+                    "id": "minimap"
+                }
+            ]
+        },
+        {
+            "name": "copy",
+            "intarget": "swap1",
+            "outtarget": "minimap"
+        },
+        {
+            "name": "composite",
+            "intarget": "render",
+            "outtarget": "minecraft:main",
+            "auxtargets": [
+                {
+                    "name": "MinimapSampler",
+                    "id": "minimap"
+                }
+            ]
+        }
+    ]
+}
