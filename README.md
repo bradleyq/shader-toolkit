@@ -2,7 +2,7 @@
 useful MC 1.17 vanilla shader examples
 
 ## extended-sky
-Modifies vanilla sky so that it can be drawn below the horizon. Allows drawing of (almost) all of the sky. Small blind spot at the very bottom. This is good for full custom skyboxes.
+Modifies vanilla sky so that it can be drawn below the horizon. Allows drawing of all of the sky. Also minimally affects the default sky. Horizon fog changes a bit. This is good for full custom skyboxes.
 
 Requirements:
 - none
@@ -15,3 +15,12 @@ Exemplifies rendering the scene twice (in an arguably cool way). Creates a secon
 Requirements:
 - Fabulous
 <img src="images/holo-minimap.png" /> 
+
+## sun-position
+!!!PROOF OF CONCEPT!!! WILL BREAK IN MANY SCENARIOS (to keep the shader simple).
+Exemplifies extracting sun position, ProjMat, ModelViewMat from core and passing into post. Computes directional lighting based on sun position and tod.
+
+Requirements:
+- Fabulous
+- View bobbing off
+<img src="images/sun-position.gif" /> 
