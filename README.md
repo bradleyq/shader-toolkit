@@ -17,7 +17,6 @@ Requirements:
 <img src="images/holo-minimap.png" /> 
 
 ## sun-position
-!!!PROOF OF CONCEPT!!! WILL BREAK IN MANY SCENARIOS (to keep the shader simple).
 Exemplifies extracting sun position, ProjMat, ModelViewMat from core and passing into post. Computes directional lighting based on sun position and tod.
 
 Requirements:
