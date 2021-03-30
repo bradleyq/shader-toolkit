@@ -9,17 +9,12 @@ in vec2 texCoord;
 
 out vec4 fragColor;
 
-#define near 0.00004882812 
-#define far 1.0
-
-float LinearizeDepth(float depth) 
-{
-    return (2.0 * near * far) / (far + near - depth * (far - near));    
-}
-
 void main() {
     fragColor = texture(PastFrameSampler, texCoord);
+
     vec4 hmm = texture(DiffuseSampler, vec2(0.0001, 0.0001));
+
+    // if detected control pixel, copy new frame onto 'render' output, otherwise, continue using last frame
     if (hmm.r > 0.99 && hmm.a > 0.99 && hmm.g < 0.01 && hmm.b < 0.01) {
         vec2 oneTexel = 1.0 / OutSize;
         if (texCoord.x > oneTexel.x && texCoord.y > oneTexel.y) {

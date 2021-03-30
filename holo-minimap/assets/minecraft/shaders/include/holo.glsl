@@ -6,8 +6,14 @@
 #define SCALE 300
 #define OUTOFWORLD 1000
 
+// check if current frame is a holo render
+bool inHolo(float GameTime) {
+    return mod(GameTime * BIGPRIME, PERIOD) < 1.0;
+}
+
+// output scaled position if holo frame
 vec4 scaleView(mat4 ModelViewMat, mat4 ProjMat, float GameTime, vec3 Position) {
-    if (mod(GameTime * BIGPRIME, PERIOD) < 1.0) {
+    if (inHolo(GameTime)) {
         Position /= SCALE;
     }
     vec4 scaledPos4 = ModelViewMat * vec4(Position, 1.0);
@@ -18,9 +24,10 @@ vec4 scaleView(mat4 ModelViewMat, mat4 ProjMat, float GameTime, vec3 Position) {
     return scaledPos4;
 }
 
+// remove target from render view if holo
 vec4 removeView(mat4 ModelViewMat, mat4 ProjMat, float GameTime, vec3 Position) {
     vec4 scaledPos4 = ProjMat * ModelViewMat * vec4(Position, 1.0);
-    if (mod(GameTime * BIGPRIME, PERIOD) < 1.0) {
+    if (inHolo(GameTime)) {
         scaledPos4 /= scaledPos4.w;
         scaledPos4.y += OUTOFWORLD;
     }

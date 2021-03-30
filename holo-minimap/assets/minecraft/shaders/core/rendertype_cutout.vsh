@@ -23,7 +23,10 @@ void main() {
     gl_Position = scaleView(ModelViewMat, ProjMat, GameTime, Position + ChunkOffset);
 
     vertexDistance = length((ModelViewMat * vec4(Position + ChunkOffset, 1.0)).xyz);
-    vertexColor = Color * texelFetch(Sampler2, UV2 / 16, 0);
+    vertexColor = Color;
+    if (!inHolo(GameTime)) {
+        vertexColor *= texelFetch(Sampler2, UV2 / 16, 0);
+    }
     texCoord0 = UV0;
     normal = ProjMat * ModelViewMat * vec4(Normal, 0.0);
 }
