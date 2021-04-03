@@ -14,12 +14,11 @@ in float far;
 out vec4 fragColor;
 
 // moj_import doesn't work in post-process shaders ;_; Felix pls fix
-#define NUMCONTROLS 17
+#define NUMCONTROLS 26
 #define THRESH 0.5
-#define FPRECISION 1000000.0
+#define FPRECISION 4000000.0
 #define PROJNEAR 0.05
-#define PROJFARSCALE 256.0
-#define FUDGE 5.0
+#define FUDGE 32.0
 
 int inControl(vec2 screenCoord, float screenWidth) {
     if (screenCoord.y < 1.0) {
@@ -57,33 +56,37 @@ float luma(vec3 color){
 	return dot(color,vec3(0.299, 0.587, 0.114));
 }
 
+vec4 backProject(vec4 vec) {
+    vec4 tmp = ProjInv * vec;
+    return tmp / tmp.w;
+}
+
 void main() {
     bool inctrl = inControl(texCoord * OutSize, OutSize.x) > -1;
 
     fragColor = getNotControl(DiffuseSampler, texCoord, inctrl);
-    float ldepth = LinearizeDepth(getNotControl(DiffuseDepthSampler, texCoord, inctrl).r);
+    float depth = getNotControl(DiffuseDepthSampler, texCoord, inctrl).r;
 
     // only do lighting if not sky and sunDir exists
-    if (ldepth < far - FUDGE && length(sunDir) > 0.99) {
+    if (LinearizeDepth(depth) < far - FUDGE && length(sunDir) > 0.99) {
 
         // first calculate approximate surface normal using depth map
-        float ldepth2 = LinearizeDepth(getNotControl(DiffuseDepthSampler, texCoord + vec2(0.0, oneTexel.y), inctrl).r);
-        float ldepth3 = LinearizeDepth(getNotControl(DiffuseDepthSampler, texCoord + vec2(oneTexel.x, 0.0), inctrl).r);
-        float ldepth4 = LinearizeDepth(getNotControl(DiffuseDepthSampler, texCoord - vec2(0.0, oneTexel.y), inctrl).r);
-        float ldepth5 = LinearizeDepth(getNotControl(DiffuseDepthSampler, texCoord - vec2(oneTexel.x, 0.0), inctrl).r);
+        float depth2 = getNotControl(DiffuseDepthSampler, texCoord + vec2(0.0, oneTexel.y), inctrl).r;
+        float depth3 = getNotControl(DiffuseDepthSampler, texCoord + vec2(oneTexel.x, 0.0), inctrl).r;
+        float depth4 = getNotControl(DiffuseDepthSampler, texCoord - vec2(0.0, oneTexel.y), inctrl).r;
+        float depth5 = getNotControl(DiffuseDepthSampler, texCoord - vec2(oneTexel.x, 0.0), inctrl).r;
 
         vec2 scaledCoord = 2.0 * (texCoord - vec2(0.5));
 
-        vec3 fragpos = (ProjInv * vec4(scaledCoord, ldepth, 1.0)).xyz;
-        fragpos *= ldepth;
-        vec3 p2 = (ProjInv * vec4(scaledCoord + 2.0 * vec2(0.0, oneTexel.y), ldepth2, 1.0)).xyz;
-        p2 = p2 * ldepth2 - fragpos;
-        vec3 p3 = (ProjInv * vec4(scaledCoord + 2.0 * vec2(oneTexel.x, 0.0), ldepth3, 1.0)).xyz;
-        p3 = p3 * ldepth3 - fragpos;
-        vec3 p4 = (ProjInv * vec4(scaledCoord - 2.0 * vec2(0.0, oneTexel.y), ldepth4, 1.0)).xyz;
-        p4 = p4 * ldepth4 - fragpos;
-        vec3 p5 = (ProjInv * vec4(scaledCoord - 2.0 * vec2(oneTexel.x, 0.0), ldepth5, 1.0)).xyz;
-        p5 = p5 * ldepth5 - fragpos;
+        vec3 fragpos = backProject(vec4(scaledCoord, depth, 1.0)).xyz;
+        vec3 p2 = backProject(vec4(scaledCoord + 2.0 * vec2(0.0, oneTexel.y), depth2, 1.0)).xyz;
+        p2 = p2 - fragpos;
+        vec3 p3 = backProject(vec4(scaledCoord + 2.0 * vec2(oneTexel.x, 0.0), depth3, 1.0)).xyz;
+        p3 = p3 - fragpos;
+        vec3 p4 = backProject(vec4(scaledCoord - 2.0 * vec2(0.0, oneTexel.y), depth4, 1.0)).xyz;
+        p4 = p4 - fragpos;
+        vec3 p5 = backProject(vec4(scaledCoord - 2.0 * vec2(oneTexel.x, 0.0), depth5, 1.0)).xyz;
+        p5 = p5 - fragpos;
         vec3 normal = normalize(cross(p2, p3)) 
                     + normalize(cross(-p4, p3)) 
                     + normalize(cross(p2, -p5)) 

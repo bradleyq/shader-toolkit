@@ -1,10 +1,9 @@
 #version 150
 
-#define NUMCONTROLS 17
+#define NUMCONTROLS 26
 #define THRESH 0.5
-#define FPRECISION 1000000.0
+#define FPRECISION 4000000.0
 #define PROJNEAR 0.05
-#define PROJFARSCALE 256.0
 
 /*
 Control Map:
@@ -13,17 +12,27 @@ Control Map:
 [2] sunDir.z
 [3] arctan(ProjMat[0][0])
 [4] arctan(ProjMat[1][1])
-[5] far / 256.0  <! near == 0.05 always>
-[6] ModelViewMat[0][0]
-[7] ModelViewMat[0][1]
-[8] ModelViewMat[0][2]
-[9] ModelViewMat[1][0]
-[10] ModelViewMat[1][1]
-[11] ModelViewMat[1][2]
-[12] ModelViewMat[2][0]
-[13] ModelViewMat[2][1]
-[14] ModelViewMat[2][2]
-[15] FogColor
+[5] ProjMat[1][0]
+[6] ProjMat[0][1]
+[7] ProjMat[1][2]
+[8] ProjMat[1][3]
+[9] ProjMat[2][0]
+[10] ProjMat[2][1]
+[11] ProjMat[2][2]
+[12] ProjMat[2][3]
+[13] ProjMat[3][0]
+[14] ProjMat[3][1]
+[15] ProjMat[3][2]
+[16] ModelViewMat[0][0]
+[17] ModelViewMat[0][1]
+[18] ModelViewMat[0][2]
+[19] ModelViewMat[1][0]
+[20] ModelViewMat[1][1]
+[21] ModelViewMat[1][2]
+[22] ModelViewMat[2][0]
+[23] ModelViewMat[2][1]
+[24] ModelViewMat[2][2]
+[25] FogColor
 */
 
 // returns control pixel index or -1 if not control

@@ -14,9 +14,8 @@ out float near;
 out float far;
 
 // moj_import doesn't work in post-process shaders ;_; Felix pls fix
-#define FPRECISION 1000000.0
+#define FPRECISION 4000000.0
 #define PROJNEAR 0.05
-#define PROJFARSCALE 256.0
 
 vec2 getControl(int index, vec2 screenSize) {
     return vec2(floor(screenSize.x / 2.0) + float(index) * 2.0 + 0.5, 0.5) / screenSize;
@@ -62,19 +61,20 @@ void main() {
     vec2 start = getControl(0, OutSize);
     vec2 inc = vec2(2.0 / OutSize.x, 0.0);
 
-    near = PROJNEAR;
-    far = decodeFloat(texture(DiffuseSampler, start + 5.0 * inc).xyz) * PROJFARSCALE;
 
     // ProjMat constructed assuming no translation or rotation matrices applied (aka no view bobbing).
-    mat4 ProjMat = mat4(tan(decodeFloat(texture(DiffuseSampler, start + 3.0 * inc).xyz)), 0.0, 0.0, 0.0,
-                        0.0, tan(decodeFloat(texture(DiffuseSampler, start + 4.0 * inc).xyz)), 0.0, 0.0,
-                        0.0, 0.0, -(far + PROJNEAR) / (far - PROJNEAR),  -1.0,
-                        0.0, 0.0, -2.0 * (far * PROJNEAR) / (far - PROJNEAR), 0.0);
+    mat4 ProjMat = mat4(tan(decodeFloat(texture(DiffuseSampler, start + 3.0 * inc).xyz)), decodeFloat(texture(DiffuseSampler, start + 6.0 * inc).xyz), 0.0, 0.0,
+                        decodeFloat(texture(DiffuseSampler, start + 5.0 * inc).xyz), tan(decodeFloat(texture(DiffuseSampler, start + 4.0 * inc).xyz)), decodeFloat(texture(DiffuseSampler, start + 7.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 8.0 * inc).xyz),
+                        decodeFloat(texture(DiffuseSampler, start + 9.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 10.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 11.0 * inc).xyz),  decodeFloat(texture(DiffuseSampler, start + 12.0 * inc).xyz),
+                        decodeFloat(texture(DiffuseSampler, start + 13.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 14.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 15.0 * inc).xyz), 0.0);
 
-    mat4 ModeViewMat = mat4(decodeFloat(texture(DiffuseSampler, start + 6.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 7.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 8.0 * inc).xyz), 0.0,
-                            decodeFloat(texture(DiffuseSampler, start + 9.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 10.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 11.0 * inc).xyz), 0.0,
-                            decodeFloat(texture(DiffuseSampler, start + 12.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 13.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 14.0 * inc).xyz), 0.0,
+    mat4 ModeViewMat = mat4(decodeFloat(texture(DiffuseSampler, start + 16.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 17.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 18.0 * inc).xyz), 0.0,
+                            decodeFloat(texture(DiffuseSampler, start + 19.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 20.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 21.0 * inc).xyz), 0.0,
+                            decodeFloat(texture(DiffuseSampler, start + 22.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 23.0 * inc).xyz), decodeFloat(texture(DiffuseSampler, start + 24.0 * inc).xyz), 0.0,
                             0.0, 0.0, 0.0, 1.0);
+
+    near = PROJNEAR;
+    far = ProjMat[3][2] * PROJNEAR / (ProjMat[3][2] + 2.0 * PROJNEAR);
 
     sunDir = normalize((inverse(ModeViewMat) * vec4(decodeFloat(texture(DiffuseSampler, start).xyz), 
                                                     decodeFloat(texture(DiffuseSampler, start + inc).xyz), 
