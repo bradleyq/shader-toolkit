@@ -13,7 +13,7 @@ out float isSky;
 out float vertexDistance;
 
 #define BOTTOM -32.0
-#define SKYSCALE 4.0
+#define SKYSCALE 0.01
 #define SKYHEIGHT 16.0
 #define SKYRADIUS 512.0
 #define FUDGE 0.004
