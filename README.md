@@ -21,7 +21,6 @@ Exemplifies extracting sun position, ProjMat, ModelViewMat from core and passing
 
 Requirements:
 - Fabulous
-- View bobbing off
 <img src="images/sun-position.gif" /> 
 
 ## vaporwave
