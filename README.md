@@ -25,7 +25,7 @@ Requirements:
 <img src="images/sun-position.gif" /> 
 
 ## vaporwave
-A E S T H E T I C. Couple neat tricks here. Detecting water by using model height instead of texture. Barycentric coordinates to tell where on a face a fragment is. Also making use of extended sky.
+A E S T H E T I C. Couple neat tricks here. Detecting water by using model height instead of texture. Barycentric coordinates to tell where on a face a fragment is. Also making use of extended sky. Does not include entities to keep the pack simple.
 
 Requirements:
 - none for base
