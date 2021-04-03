@@ -23,3 +23,11 @@ Requirements:
 - Fabulous
 - View bobbing off
 <img src="images/sun-position.gif" /> 
+
+## vaporwave
+A E S T H E T I C. Couple neat tricks here. Detecting water by using model height instead of texture. Barycentric coordinates to tell where on a face a fragment is. Also making use of extended sky.
+
+Requirements:
+- none for base
+- Fabulous for bloom
+<img src="images/vaporwave.png" /> 
