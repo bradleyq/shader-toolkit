@@ -30,3 +30,9 @@ Requirements:
 - none for base
 - Fabulous for bloom
 <img src="images/vaporwave.png" /> 
+
+## faster-fabulous
+Tweak transparency shader for a small performance boost, especially on weaker systems. Up to 10% fps boost on UHD 630.
+
+Requirements:
+- Fabulous duh
