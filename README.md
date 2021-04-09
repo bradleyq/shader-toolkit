@@ -24,12 +24,20 @@ Requirements:
 <img src="images/sun-position.gif" /> 
 
 ## vaporwave
-A E S T H E T I C. Couple neat tricks here. Detecting water by using model height instead of texture. Barycentric coordinates to tell where on a face a fragment is. Also making use of extended sky. Does not include entities to keep the pack simple.
+A E S T H E T I C. Couple neat tricks here. Bloom shader, waving water. Detecting water by using model height instead of texture. Barycentric coordinates to tell where on a face a fragment is. Also making use of extended sky. Does not include entities to keep the pack simple.
 
 Requirements:
 - none for base
 - Fabulous for bloom
 <img src="images/vaporwave.png" /> 
+
+## vaporwave-solid
+A E S T H E T I C. Solid version for those who actually want to play with this on. My question: WHY!?
+
+Requirements:
+- none for base
+- Fabulous for bloom
+<img src="images/vaporwave-solid.png" /> 
 
 ## faster-fabulous
 Tweak transparency shader for a small performance boost, especially on weaker systems. Up to 10% fps boost on UHD 630.
