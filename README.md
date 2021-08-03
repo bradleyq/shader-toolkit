@@ -46,7 +46,7 @@ Requirements:
 - Fabulous duh
 
 ## center-crosshair
-MC-157252 (and it's predecessor MC-5024) has plagued MC for ages. With core shaders, it is now possible to fix it! Forget waiting for Mojang! Main concept is to calculate center of screen from within the shader and reposition the crosshair sprite (!!!Note that crosshair sprite width is even so be careful when creating your crosshairs!!!). 
+MC-157252 (and it's predecessor MC-5024) has plagued MC for ages. With core shaders, it is now possible to fix it! Forget waiting for Mojang! Main concept is to calculate center of screen from within the shader and reposition the crosshair sprite (!!!Note that crosshair sprite has an even pixel width so be careful when creating your crosshairs!!!). 
 
 Requirements:
 - none
