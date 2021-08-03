@@ -11,8 +11,8 @@ uniform vec2 ScreenSize;
 out vec2 texCoord0;
 out vec3 vertexColor;
 
-#define CROSSHAIRSIZE 0.05      // target crosshair size / 2 as multiple of Y height
-#define CROSSHAIRSIZEMIN 80.0   // minimum crosshair size / 2 on screen in pix (entire sprite, not just visible portion)
+#define CROSSHAIRSIZE 0.05      // target crosshair size as multiple of Y height
+#define CROSSHAIRSIZEMIN 80.0   // minimum crosshair size on screen in pix (entire sprite, not just visible portion)
 #define FUDGE 0.999             // for UV to prevent stitching effect. no touchy!
 #define SPRITESIZE 1.0 / 16.0   // size of crosshair on icons.png. no touchy!
 
