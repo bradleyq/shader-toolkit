@@ -51,3 +51,10 @@ MC-157252 (and it's predecessor MC-5024) has plagued MC for ages. With core shad
 Requirements:
 - none
 <img src="images/center-crosshair.png" /> 
+
+## floofy-clouds
+Fully post process soft clouds. No fancy volumetric math and/or voxelization. Just a simple blur can achieve great things.
+
+Requirements:
+- Fabulous
+<img src="images/floofy-clouds.png" /> 
