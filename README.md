@@ -46,11 +46,12 @@ Requirements:
 - Fabulous duh
 
 ## center-crosshair
-MC-157252 (and it's predecessor MC-5024) has plagued MC for ages. With core shaders, it is now possible to fix it! Forget waiting for Mojang! Main concept is to calculate center of screen from within the shader and reposition the crosshair sprite (!!!Note that crosshair sprite width is even so be careful when creating your crosshairs!!!). 
+MC-157252 (and it's predecessor MC-5024) has plagued MC for ages. With core shaders, it is now possible to fix it! Forget waiting for Mojang! Main concept is to calculate center of screen from within the shader and reposition the crosshair sprite (!!!Note that crosshair sprite has an even pixel width so be careful when creating your crosshairs!!!). 
 
 Requirements:
 - none
 <img src="images/center-crosshair.png" /> 
+<<<<<<< HEAD
 
 ## floofy-clouds
 Fully post process soft clouds. No fancy volumetric math and/or voxelization. Just a simple blur can achieve great things.
@@ -58,3 +59,5 @@ Fully post process soft clouds. No fancy volumetric math and/or voxelization. Ju
 Requirements:
 - Fabulous
 <img src="images/floofy-clouds.png" /> 
+=======
+>>>>>>> ee1fcc5a62cf55d9a4850cda4a3d54fd90a6bbed
