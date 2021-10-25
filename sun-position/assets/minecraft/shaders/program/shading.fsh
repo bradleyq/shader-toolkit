@@ -108,7 +108,7 @@ void main() {
         // apply lighting color. not quite standard diffuse light equation since the blocks are already "pre-lit"
         fragColor.rgb *= mix(ambient, direct, clamp(dot(normal, sunDir), 0.0, 1.0));
 
-        // desaturate bright pixels for more realistic feel (can also reinhard tonemap with white point for this)
+        // desaturate bright pixels for more realistic feel
         fragColor.rgb = mix(fragColor.rgb, vec3(length(fragColor.rgb)/sqrt(3.0)), luma(fragColor.rgb) * 0.5);
     }
 }
