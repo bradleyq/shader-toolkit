@@ -58,3 +58,10 @@ Fully post process soft clouds. No fancy volumetric math and/or voxelization. Ju
 Requirements:
 - Fabulous
 <img src="images/floofy-clouds.png" /> 
+
+## light-level-detect
+Extremely simple core shader to check for mob spawning light levels pre 1.19.
+
+Requirements:
+- No Optifine
+<img src="images/light-level-detect.png" /> 

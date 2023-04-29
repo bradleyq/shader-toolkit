@@ -15,6 +15,7 @@ out vec3 vertexColor;
 #define CROSSHAIRSIZEMIN 80.0   // minimum crosshair size on screen in pix (entire sprite, not just visible portion)
 #define FUDGE 0.999             // for UV to prevent stitching effect. no touchy!
 #define SPRITESIZE 1.0 / 16.0   // size of crosshair on icons.png. no touchy!
+#define MINTEXSIZE 1024.0       // minimum size of crosshair+ui texture
 
 void main() {
     vec4 pos = ProjMat * ModelViewMat * vec4(Position, 1.0);
@@ -24,7 +25,7 @@ void main() {
     vertexColor = vec3(1.0);
     
 
-    if (abs(pos.x) <= 0.1 * ratio && abs(pos.y) <= 0.1 && Position.z == 0.0 && UV0.x < SPRITESIZE && UV0.y < SPRITESIZE) {
+    if (dim.x >= MINTEXSIZE && dim.y >= MINTEXSIZE && abs(pos.x) <= 0.1 * ratio && abs(pos.y) <= 0.1 && Position.z == 0.0 && UV0.x < SPRITESIZE && UV0.y < SPRITESIZE) {
         if (pos.x < 0.0) {
             pos.x = -max(CROSSHAIRSIZE * ratio, CROSSHAIRSIZEMIN / ScreenSize.x);
             texCoord0.x = SPRITESIZE * (1.0 - FUDGE);
