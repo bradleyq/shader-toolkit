@@ -59,6 +59,13 @@ Requirements:
 - Fabulous
 <img src="images/floofy-clouds.png" /> 
 
+## smooth-clouds
+Core smooth cloud shading. No fancy volumetric math and/or voxelization. Just a gradient on the cloulds. 
+
+Requirements:
+- none
+<img src="images/smooth-clouds.png" /> 
+
 ## light-level-detect
 Extremely simple core shader to check for mob spawning light levels pre 1.19.
 
